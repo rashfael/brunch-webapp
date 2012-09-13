@@ -5,7 +5,7 @@ template = require 'views/templates/header'
 module.exports = class HeaderView extends View
   template: template
   id: 'header'
-  className: 'header'
+  className: 'navbar navbar-fixed-top'
   container: '#header-container'
   autoRender: true
 
