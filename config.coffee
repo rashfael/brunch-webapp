@@ -28,5 +28,5 @@ exports.config =
 					'vendor/styles/boostrap-responsive.min.css'
 				]
 
-		templates:
-			joinTo: 'javascripts/app.js'
+    templates:
+      joinTo: 'javascripts/app.js'
