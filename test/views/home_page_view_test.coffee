@@ -7,5 +7,5 @@ describe 'HomePageView', ->
   afterEach ->
     @view.dispose()
 
-  it 'should auto-render', ->
-    expect(@view.$el.find 'img').to.have.length 1
+  # it 'should auto-render', ->
+    # @view.$el.find('img').should.have.length 1

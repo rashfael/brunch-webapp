@@ -19,9 +19,9 @@ describe 'HeaderView', ->
     @model.dispose()
 
   it 'should display 4 links', ->
-    expect(@view.$el.find 'a').to.have.length 4
+    @view.$el.find('.nav a').should.have.length 4
 
   it 'should re-render on login event', ->
-    expect(@view.renderTimes).to.equal 1
+    @view.renderTimes.should.equal 1
     mediator.publish 'loginStatus'
-    expect(@view.renderTimes).to.equal 2
+    @view.renderTimes.should.equal 2
