@@ -59,14 +59,14 @@ app.get '*', (req, res) ->
 server = app.listen 9000, ->
 	logger.info "Express server listening on port %d in %s mode", 9000, app.settings.env
 
-# io = require('socket.io').listen server
+io = require('socket.io').listen server
 
 # io.sockets.on 'message', (msg) ->
 # 	console.log 'message', msg
 
-# io.sockets.on 'connection', (socket) ->
-# 	socket.on 'projects/list', (msg) ->
-# 		console.log 'on', msg
-# 	socket.on 'message', (msg) ->
-# 		console.log 'msgsock', msg
+io.sockets.on 'connection', (socket) ->
+	socket.on 'projects/list', (msg) ->
+		console.log 'on', msg
+	socket.on 'message', (msg) ->
+		console.log 'msgsock', msg
 # 	new IoRouter socket

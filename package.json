@@ -10,23 +10,24 @@
   },
   "main": "lib/server.coffee",
   "engines": {
-    "node": "~0.6.10 || 0.8 || 0.9"
+    "node": "0.10"
   },
   "scripts": {
     "start": "brunch watch --server",
     "test": "brunch test"
   },
   "dependencies": {
-    "javascript-brunch": ">= 1.0 < 1.5",
-    "coffee-script-brunch": ">= 1.0 < 1.5",
-    "css-brunch": ">= 1.0 < 1.5",
-    "stylus-brunch": ">= 1.0 < 1.5",
-    "jade-brunch": ">= 1.0 < 1.5",
-    "uglify-js-brunch": ">= 1.0 < 1.5",
-    "clean-css-brunch": ">= 1.0 < 1.5",
+    "javascript-brunch": ">= 1.0 < 1.7",
+    "coffee-script-brunch": ">= 1.0 < 1.7",
+    "css-brunch": ">= 1.0 < 1.7",
+    "stylus-brunch": ">= 1.0 < 1.7",
+    "jade-brunch": ">= 1.0 < 1.7",
+    "uglify-js-brunch": ">= 1.0 < 1.7",
+    "clean-css-brunch": ">= 1.0 < 1.7",
     "express": ">= 3.0",
     "log4js": "~0.5.3",
-    "mongoose": "~3.2.1"
+    "mongoose": ">=3.2.x",
+    "socket.io": "~0.9.14"
   },
   "devDependencies": {
     "chai": "1.2.0",
