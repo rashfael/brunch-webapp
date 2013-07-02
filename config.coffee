@@ -13,7 +13,7 @@ exports.config =
 				before: [
 					'vendor/scripts/console-helper.js',
 					'vendor/scripts/jquery.js',
-					'vendor/scripts/underscore.js',
+					'vendor/scripts/lodash.js',
 					'vendor/scripts/backbone.js',
 					'vendor/scripts/bootstrap.js'
 				]
