@@ -5,37 +5,28 @@ module.exports = class Modal extends View
 	className: 'modal fade'
 
 	events:
-		'click .save':   'save'
+		'click .save': 'save'
 		'click .close,.btn-close': 'hide'
-		'hidden':        'hidden'
+		'hidden': 'hidden'
 		'keydown': 'keydown'
-		# 'shown':         'shown'
 
 	keydown: (event) =>
 		return unless event.keyCode is 13
 		event.preventDefault()
-		@save()
+		@save event
+		return false
 
 	hide: (event) =>
 		event.preventDefault() if event?
 		@$el.modal 'hide'
-
-	# save: (event) =>
-	# 	event.preventDefault()
-	# 	@trigger 'create', @getData()
-	# 	@hide()
 
 	render: () =>
 		super
 		@$el.modal('keyboard': true, 'backdrop': true)
 		@delegateEvents()
 		@$el.modal('show': true)
-		@
+		return @
 
 	hidden: () ->
 		@remove()
-		false
-
-	# shown: () ->
-	#   App.Helpers.Forms.setFocus($(@el), true)
-	#   false
+		return false

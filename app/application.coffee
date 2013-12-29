@@ -1,50 +1,21 @@
-Chaplin = require 'chaplin'
-Router = require 'chaplin/lib/router'
 mediator = require 'mediator'
-routes = require 'routes'
 AuthenticationController = require 'controllers/authentication_controller'
 HeaderController = require 'controllers/header_controller'
 FooterController = require 'controllers/footer_controller'
-Layout = require 'views/layout'
 
 require 'lib/iosync'
 
-# The application object
+
+# The application object.
 module.exports = class Application extends Chaplin.Application
-	# Set your application name here so the document title is set to
-	# “Controller title – Site title” (see Layout#adjustTitle)
-	title: 'Brunch example application'
-	serverUrl: location.protocol + "//" + location.host
-
-	initialize: ->
+	serverUrl: location.protocol + "//" + location.host + "/web"
+	start: =>
+		# You can fetch some data here and start app
+		# (by calling `super`) after that.
+		# @initSocket ->
 		super
-
-		# Initialize core components
-		@initDispatcher()
-		@initLayout()
-		@initMediator()
-
-		@router = new Router()
-
-		mediator.subscribe '!auth:success', =>
-			@initControllers()
-			# register routes late
-			routes @router.match
-			@router.startHistory()
-			#mediator.publish '!router:route', ''
-
-		@initSocket ->
-			auth = new AuthenticationController()
-
-		# Freeze the application instance to prevent further changes
-		Object.freeze? this
-
-	# Override standard layout initializer
-	# ------------------------------------
-	initLayout: ->
-		# Use an application-specific Layout class. Currently this adds
-		# no features to the standard Chaplin Layout, it’s an empty placeholder.
-		@layout = new Layout {@title}
+		@initControllers()
+		
 
 	# Instantiate common controllers
 	# ------------------------------
@@ -60,28 +31,34 @@ module.exports = class Application extends Chaplin.Application
 
 	# Create additional mediator properties
 	# -------------------------------------
-	initMediator: ->
-		# Create a user property
-		Chaplin.mediator.user = null
-		# Add additional application-specific properties and methods
-		# Seal the mediator
-		Chaplin.mediator.seal()
+	# initMediator: ->
+	# 	# Create a user property
+	# 	# Chaplin.mediator.user = null
+	# 	# Add additional application-specific properties and methods
+	# 	# Seal the mediator
+	# 	# Chaplin.mediator.seal()
 
 	initSocket: (cb) =>
 		socket = io.connect @serverUrl
-
+		# Backbone.socket = socket
+		# emit = socket.emit
+		# socket.emit = function() {
+		# 	args = Array.prototype.slice.call arguments
+		# 	console.log('***','emit', Array.prototype.slice.call(arguments));
+		# 	emit.apply socket, arguments
+		# };
 		$emit = socket.$emit
 		socket.$emit = () ->
 			args = Array.prototype.slice.call arguments
-			mediator.publish "!io:#{args[0]}", args[1..]
+			mediator.publish "!io:#{args[0]}", args[1..]...
 			$emit.apply socket, arguments
 
 		mediator.subscribe '!io:emit', () ->
 			args = Array.prototype.slice.call arguments
-			# console.log args[1..]
+			console.info 'Server call: ' + args[0], (arg for arg in args[1..] when typeof arg isnt 'function')...
 			socket.emit.apply socket, args, args
 
 		socket.on 'connect', cb
 
-		socket.on 'error', () ->
-			console.log 'LOL'
+		socket.on 'error', (err) ->
+			console.error 'SocketIO error', err
